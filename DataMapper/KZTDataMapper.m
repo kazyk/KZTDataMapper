@@ -73,7 +73,7 @@ static NSDateFormatter *defaultDateFormatter = nil;
 {
     NSParameterAssert(destinationClass);
 
-    return [self parseDictionaries:dictionaries withDestinationObjectBlock:^(id src) {
+    return [self parseDictionaries:dictionaries withDestinationObjectBlock:^(NSDictionary *sourceDictionary) {
         return [[destinationClass alloc] init];
     }];
 }
@@ -81,21 +81,21 @@ static NSDateFormatter *defaultDateFormatter = nil;
 - (KZTDataMapperValueBlock)valueBlockForClass:(Class)aClass
 {
     if (aClass == [NSString class]) {
-        return ^id(id src) {
-            return [src description];
+        return ^id(id sourceValue) {
+            return [sourceValue description];
         };
     } else if (aClass == [NSNumber class]) {
-        return ^id(id src) {
-            if ([src isKindOfClass:[NSNumber class]]) {
-                return src;
+        return ^id(id sourceValue) {
+            if ([sourceValue isKindOfClass:[NSNumber class]]) {
+                return sourceValue;
             }
             return nil;
         };
     } else if (aClass == [NSDate class]) {
         __weak typeof(self) wself = self;
-        return ^id(id src) {
-            if ([src isKindOfClass:[NSString class]]) {
-                return [wself.dateFormatter dateFromString:src];
+        return ^id(id sourceValue) {
+            if ([sourceValue isKindOfClass:[NSString class]]) {
+                return [wself.dateFormatter dateFromString:sourceValue];
             }
             return nil;
         };

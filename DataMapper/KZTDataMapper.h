@@ -1,8 +1,9 @@
 #import <Foundation/Foundation.h>
 
+//receives mapping source dictionary and returns destination object.
+typedef id (^KZTDataMapperObjectBlock)(NSDictionary *sourceDictionary);
 
-typedef id (^KZTDataMapperObjectBlock)(id src);
-typedef id (^KZTDataMapperValueBlock)(id src);
+typedef id (^KZTDataMapperValueBlock)(id sourceValue);
 
 
 @interface KZTDataMapper : NSObject
@@ -16,6 +17,7 @@ typedef id (^KZTDataMapperValueBlock)(id src);
 - (void)mapValueFromKeyPath:(NSString *)srcKeyPath toKey:(NSString *)destinationKey destinationClass:(Class)destinationClass;
 - (void)mapValueFromKeyPath:(NSString *)srcKeyPath toKey:(NSString *)destinationKey transformBlock:(KZTDataMapperValueBlock)block;
 
+//executes mapping.
 - (NSArray *)parseDictionaries:(NSArray *)dictionaries withDestinationObjectBlock:(KZTDataMapperObjectBlock)objectBlock;
 
 //convenience method, creates destination object using [[class alloc] init]
