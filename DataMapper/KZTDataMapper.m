@@ -6,7 +6,6 @@ static NSDateFormatter *defaultDateFormatter = nil;
 
 
 @interface KZTDataMapper ()
-@property (nonatomic) KZTValueMapping *primaryKeyMapping;
 @property (readonly, nonatomic) NSMutableArray *mappings;
 @end
 
