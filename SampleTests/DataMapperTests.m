@@ -53,7 +53,7 @@
     STAssertEqualObjects(obj.number, @123, @"");
     STAssertNil(obj.obj, @"");
     STAssertEqualObjects(obj.name, @"nnnameeee", @"");
-    STAssertEquals(obj.integer, 456, @"");
+    STAssertEquals(obj.integer, (NSInteger)456, @"");
 }
 
 - (void)testCoreDataObject
