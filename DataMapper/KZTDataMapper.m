@@ -98,6 +98,15 @@ static NSDateFormatter *defaultDateFormatter = nil;
             }
             return nil;
         };
+    } else if (aClass == [NSURL class]) {
+        return ^id(id sourceValue) {
+            if ([sourceValue isKindOfClass:[NSURL class]]) {
+                return sourceValue;
+            } else if ([sourceValue isKindOfClass:[NSString class]]) {
+                return [NSURL URLWithString:sourceValue];
+            }
+            return nil;
+        };
     }
     return nil;
 }

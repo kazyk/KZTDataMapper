@@ -9,6 +9,7 @@
 @property (nonatomic) id obj;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSInteger integer;
+@property (nonatomic) NSURL *url;
 @end
 
 @implementation SampleObject
@@ -35,6 +36,7 @@
                     @"number": @123,
                     @"nnname": @"nnnameeee",
                     @"integer": @456,
+                    @"url": @"http://example.com/",
             }
     ];
 
@@ -43,6 +45,7 @@
     [mapper mapValueFromKeyPath:@"number" toKey:@"number" destinationClass:[NSNumber class]];
     [mapper mapValueFromKeyPath:@"nnname" toKey:@"name" destinationClass:[NSString class]];
     [mapper mapValueFromKeyPath:@"integer" toKey:@"integer" destinationClass:[NSNumber class]];
+    [mapper mapValueFromKeyPath:@"url" toKey:@"url" destinationClass:[NSURL class]];
 
     NSArray *result = [mapper parseDictionaries:src withDestiationClass:[SampleObject class]];
 
@@ -54,6 +57,8 @@
     STAssertNil(obj.obj, @"");
     STAssertEqualObjects(obj.name, @"nnnameeee", @"");
     STAssertEquals(obj.integer, (NSInteger)456, @"");
+    STAssertTrue([obj.url isKindOfClass:[NSURL class]], @"");
+    STAssertEqualObjects(obj.url, [NSURL URLWithString:@"http://example.com/"], @"");
 }
 
 - (void)testCoreDataObject
